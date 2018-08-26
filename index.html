@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-EN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Slot machine</title>
+<meta name="keywords" content="slot machine online, casino slots, play online slots,fruit machines">
+<meta name="description" content="play slot online for free,online casino slot machines, ">
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{
+padding:0px;
+margin:0px;
+}
+
+#ezslots .window {
+	font-family:arial,helvetica,sans-serif;	
+	border:1px solid black;
+}
+
+
+#machineBox {
+  display: table;
+  margin: 0 auto;
+}
+
+
+.blink{
+    -webkit-animation: blink 400ms infinite alternate;
+    -moz-animation: blink 500ms infinite alternate;
+    -o-animation: blink 500ms infinite alternate;
+    animation: blink 500ms infinite alternate;
+    color: red;
+}
+@-webkit-keyframes blink {
+	from { opacity:1; }
+	to { opacity:0; }
+}
+@-o-keyframes blink {
+	from { opacity:1; }
+	to { opacity:0; }
+}
+@-moz-keyframes blink {
+	from { opacity:1; }
+	to { opacity:0; }
+}
+@keyframes blink {
+	from { opacity:1; }
+	to { opacity:0; }
+};
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="js/ezslots.js"></script>
+<link href="css/ezslots.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+<div class="container" style="margin-top:10px; margin-bottom:50px;">
+
+<div id="machineBox">
+
+<div id="top" style="height:232px; width:544px;"></div>
+<div id="ezslots"></div>
+
+<div id="controlPanel" style=" padding-top:30px; padding-left:40px;height:114px; width:530px;">
+<button id="spin" type="button" class="btn btn-lg"  style="margin-right:20px;background-color:green;">spin</button>
+<button type="button" class="btn btn-lg " style="margin-right:20px;background-color:yellow;">Balance:<span style="color:red;" id="showBanlance">0</span></button>
+<button id="changeBG" type="button" class="btn btn-lg" style="background-color:lightblue;">change background</button>
+</div>
+
+<div style="background-color: white;margin-top:20px; padding-top:5px; ">
+ <label for="coins" style="margin-left:10px; ">Insert Coins</label>
+   <select id="coins">
+    <option value= 0></option>
+    <option value= 1>1 coin</option>
+    <option value= 2>2 coins</option>
+    <option value= 3>3 coins</option>
+	<option value= 4>4 coins</option>
+    <option value= 5>5 coins</option>
+  </select>
+</div>
+
+<div style="background-color: white;margin-top:20px; padding-top:5px; padding-bottom:5px; ">
+<span style="margin-left:10px; "><b>Input:</b></span><input type="text" id="balance"  value=5000 > <button id="setBanlace" type="button" class="btn " style="margin-left:30px; ">Set Balance</button>
+</div>
+
+
+<div   style="background-color: white; ">
+<h3 style="margin-left:10px; ">Pay-Table</h3>
+<ul>
+  <li id="cheeryTop">3 Cherry symbols on top line 2000 </li>
+  <li id="cheeryCenter">3 Cherry symbols on center line 1000 </li>
+  <li id="cheeryBottom">3 Cherry symbols on bottom line 4000 </li>
+  <li id="anyLine7">3 7 symbols on any line 150 </li>
+  <li id="conbCherry7">Any combination of Cherry and 7 on any line 75 </li>
+  <li id="anyLine3Bar">3 3xBar symbols on any line 50 </li>
+  <li id="anyLine2Bar">3 2xBar symbols on any line 20 </li>
+  <li id="anyLine1Bar">3 1xBar symbols on any line 10</li>
+  <li id="conbBars">combination of any Bar symbols on any line 5</li>
+</ul> 
+</div>
+
+<div   style="background-color: white;margin-bottom:20px;  ">
+<h3 style="margin-left:10px; ">Debug</h3>
+ <label for="mode" style="margin-left:10px; ">Choose mode</label>
+   <select id="mode">
+    <option value="random">Random</option>
+    <option value="fixed">Fixed</option>
+  </select>
+<br><br>
+<label for="symbols" style="margin-left:10px; ">Choose symbols</label>
+<select id="symbols">
+    <option value="Bar">Bar</option>
+    <option value="2xBar">2xBar</option>
+    <option value="3xBar">3xBar</option>
+    <option value="7">7</option>
+	<option value="cherry">cherry</option>
+  </select>
+ <br><br>
+ <label for="position" style="margin-left:10px; ">Choose position</label>
+   <select id="position">
+    <option value="top">Top</option>
+    <option value="center">Center</option>
+    <option value="bottom">Bottom</option>
+  </select>
+</div>
+
+<audio id="insertCoin">
+  <source src="audio/insert_coin.mp3" type="audio/mp3">
+</audio>
+
+<audio id="spinAudio">
+  <source src="audio/spin.wav" type="audio/wav">
+</audio>
+
+<audio id="winAudio">
+  <source src="audio/win.mp3" type="audio/mp3">
+</audio>
+ 
+</div>
+
+</div>
+
+<script>
+
+$(function(){
+	//setting up some sample set sof things we can make a slot machine of
+	var images = ['<img src="images/slot0.jpg">','<img src="images/slot1.jpg">','<img src="images/slot2.jpg">','<img src="images/slot3.jpg">','<img src="images/slot4.jpg">','<img src="images/slot5.jpg">','<img src="images/slot6.jpg">','<img src="images/slot7.jpg">','<img src="images/slot8.jpg">','<img src="images/slot9.jpg">'];
+    var backgroundImages = ["url('images/background.jpg')","url('images/background1.jpg')","url('images/background2.jpg')"];
+    var currentBg = backgroundImages[1];
+	var ezslot = new EZSlots("ezslots",{"reelCount":3,"symbols":images,"height":605,"width":141,"time":6000});
+	var coinValue = 1000;
+	var balance = 0;
+	var insertCoin = document.getElementById("insertCoin"); 
+	
+    $('body').css("backgroundImage", backgroundImages[1]);
+	$('.ezslots').css("backgroundImage", 'url("images/center.png")');
+	$('#controlPanel').css("backgroundImage", 'url("images/bottom.png")');
+	$('#top').css("backgroundImage", 'url("images/top.png")');
+
+	$("#spin").click(function(){
+   
+    if ( $('#mode').val() == "random" ) {
+	    console.log(ezslot.spin())} 
+	else { console.log(ezslot.win()) };
+
+	});
+
+	$("#setBanlace").click(function(){
+	    balance = Number($('#balance').val());
+	 if (isNaN(balance) || balance < 1 || balance > 5000) {
+        alert( "please input number in the range 1 to 5000" );
+    } 
+	else {document.getElementById("showBanlance").innerText = balance;}
+	});
+          
+    $("#changeBG").click( function(){
+        switch (currentBg) {
+             case backgroundImages[0] :
+                 $('body').css("backgroundImage", backgroundImages[1]);
+                 currentBg = backgroundImages[1];
+                 break;
+             case backgroundImages[1] :
+                  $('body').css("backgroundImage", backgroundImages[2]);
+                  currentBg = backgroundImages[2];
+                  break;  
+            case backgroundImages[2] :
+                  $('body').css("backgroundImage", backgroundImages[0]);
+                  currentBg = backgroundImages[0];
+                   break;
+       }
+      } );
+  $('#coins').on('change', function() {
+  //alert (this.value);
+  balance = Number(document.getElementById("showBanlance").innerText );
+  //alert(balance);
+  if (balance <= 0) { balance = 0;}
+  balance += (this.value * coinValue);
+  document.getElementById("showBanlance").innerText = balance;
+  insertCoin.play(); 
+  });
+
+});
+
+</script>
+
+</body>
+</html>

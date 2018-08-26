@@ -1,0 +1,58 @@
+
+.ezslots {	
+	border:0px solid black;
+       height:326px ;
+	   width: 543px;
+    background-repeat: no-repeat;
+}
+
+
+.ezslots>.window{	
+	overflow:hidden;
+	display:inline-block;
+	margin-top: 42px;
+}
+.ezslots>.window>.slider>.symbol{
+	text-align:center;
+	display:table;	
+}
+.ezslots>.window>.slider>.symbol>.content{
+      padding:0px;
+      margin:0px;
+      display:table-cell;
+      text-align:center;
+      vertical-align:middle;
+}
+
+.ezslots>.winLineBox{	
+	overflow:hidden;
+	display:inline-block;
+        width:10px;
+        height:242px;
+        background-color:black;
+}
+
+
+.ezslots>.winLineBox >.winLine{	
+    position: relative;
+    top: 56px;
+    width: 10px;
+    height:5px;
+    background-color:white;
+}
+
+.ezslots>.winLineBox >.winLine1{	
+    position: relative;
+    top: 118px;
+    width: 10px;
+    height:5px;
+    background-color:white;
+}
+
+.ezslots>.winLineBox >.winLine2{	
+    position: relative;
+    top: 180px;
+    width: 10px;
+    height:5px;
+    background-color:white;
+}
